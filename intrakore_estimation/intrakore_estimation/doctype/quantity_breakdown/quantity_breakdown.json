@@ -1,0 +1,114 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:QB-{YYYY}-{#####}",
+ "creation": "2026-04-22 22:18:05.803922",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "breakdown_number",
+  "estimation",
+  "item",
+  "total_quantity",
+  "unit",
+  "wastage_percentage",
+  "net_quantity",
+  "rate",
+  "amount",
+  "breakdown_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "breakdown_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Breakdown Number",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "estimation",
+   "fieldtype": "Link",
+   "label": "Estimation",
+   "options": "Estimation"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Quantity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "UOM"
+  },
+  {
+   "default": "0",
+   "fieldname": "wastage_percentage",
+   "fieldtype": "Percent",
+   "label": "Wastage Percentage"
+  },
+  {
+   "fieldname": "net_quantity",
+   "fieldtype": "Float",
+   "label": "Net Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "label": "Rate"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "breakdown_details",
+   "fieldtype": "Table",
+   "label": "Breakdown Details",
+   "options": "Quantity Breakdown Detail"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-23 00:27:42.592233",
+ "modified_by": "Administrator",
+ "module": "Intrakore Estimation",
+ "name": "Quantity Breakdown",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "breakdown_number"
+}
