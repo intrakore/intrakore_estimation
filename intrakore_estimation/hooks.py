@@ -1,9 +1,9 @@
 app_name = "intrakore_estimation"
 app_title = "Intrakore Estimation"
 app_publisher = "Intrakore"
-app_description = "Handles project costing, estimation and pricing breakdowns. Enables creation of pre-priced items and quantity breakdowns for accurate project cost estimation and bidding."
+app_description = "Construction estimation and bidding platform with AI-powered BOQ processing, package tagging, cost library integration, and multi-stage bid workflow for contractors and subcontractors"
 app_email = "support@intrakore.com"
-app_license = "agpl-3.0"
+app_license = "mit"
 
 # Apps
 # ------------------
