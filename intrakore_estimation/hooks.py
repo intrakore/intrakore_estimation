@@ -253,4 +253,4 @@ app_include_css = [
 # ignore_translatable_strings_from = []
 
 
-website_route_rules = [{'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'},]
+website_route_rules = [{'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'}, {'from_route': '/estimation/<path:app_path>', 'to_route': 'estimation'},]

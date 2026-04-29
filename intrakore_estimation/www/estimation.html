@@ -14,12 +14,13 @@
 			window.csrf_token = '{{ frappe.session.csrf_token }}';
 			// TODO: load boot data here (context file is created in `www` directory)
 		</script>
-  
-          <script>
-              {% for key in boot %}
-              window["{{ key }}"] = {{ boot[key] | tojson }};
-              {% endfor %}
-          </script>
-          </body>
-          
+		<script>
+			window.csrf_token = '{{ frappe.session.csrf_token }}';
+			// TODO: load boot data here (context file is created in `www` directory)
+		</script>
+		<script>
+			window.csrf_token = '{{ frappe.session.csrf_token }}';
+			// TODO: load boot data here (context file is created in `www` directory)
+		</script>
+  </body>
 </html>

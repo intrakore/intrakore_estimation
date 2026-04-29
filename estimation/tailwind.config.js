@@ -1,13 +1,15 @@
-// tailwind.config.js in your SPA
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
+  presets: [
+    require('@rtcamp/frappe-ui-react/tailwind/preset')
+  ],
   content: [
     './index.html',
-    './src/**/*.{vue,js,ts,jsx,tsx}',
-    './node_modules/intrakore-ui/src/**/*.{vue,js,ts,jsx,tsx}'
+    './src/**/*.{js,jsx,ts,tsx}',
+    './node_modules/@rtcamp/frappe-ui-react/dist/**/*.js'
   ],
   theme: {
-    extend: {},  // No preset needed - use tokens.css
+    extend: {},
   },
   plugins: [],
 }
