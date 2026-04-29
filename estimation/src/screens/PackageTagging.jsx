@@ -4,7 +4,6 @@ import { Card, Button, Badge, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react
 
 export default function PackageTagging({ bid }) {
   const [filter, setFilter] = useState('all');
-  const [selectedPackage, setSelectedPackage] = useState(null);
   
   const { data: linesData, isLoading, mutate } = useFrappeGetCall(
     'intrakore_estimation.api.get_untagged_lines',
@@ -13,7 +12,7 @@ export default function PackageTagging({ bid }) {
     { revalidateOnFocus: false }
   );
 
-  const { call: updateLineTag, loading } = useFrappePutCall('intrakore_estimation.api.update_line_package');
+  const { call: updateLineTag } = useFrappePutCall('intrakore_estimation.api.update_line_package');
 
   const { data: packagesData } = useFrappeGetCall(
     'intrakore_estimation.api.get_packages',
@@ -104,58 +103,23 @@ export default function PackageTagging({ bid }) {
       {/* Filters */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setFilter('all')}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-              filter === 'all' ? 'bg-blue-600 text-white' : 'border hover:bg-gray-100'
-            }`}
-            style={{
-              backgroundColor: filter === 'all' ? undefined : 'var(--surface-white)',
-              borderColor: 'var(--outline-gray-1)',
-              color: filter === 'all' ? 'white' : 'var(--ink-gray-6)',
-            }}
-          >
-            All ({lines.length})
-          </button>
-          <button
-            onClick={() => setFilter('attention')}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-              filter === 'attention' ? 'bg-amber-500 text-white' : 'border hover:bg-gray-100'
-            }`}
-            style={{
-              backgroundColor: filter === 'attention' ? undefined : 'var(--surface-white)',
-              borderColor: 'var(--outline-gray-1)',
-              color: filter === 'attention' ? 'white' : 'var(--ink-gray-6)',
-            }}
-          >
-            Needs attention ({needsAttention})
-          </button>
-          <button
-            onClick={() => setFilter('untagged')}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-              filter === 'untagged' ? 'bg-red-500 text-white' : 'border hover:bg-gray-100'
-            }`}
-            style={{
-              backgroundColor: filter === 'untagged' ? undefined : 'var(--surface-white)',
-              borderColor: 'var(--outline-gray-1)',
-              color: filter === 'untagged' ? 'white' : 'var(--ink-gray-6)',
-            }}
-          >
-            Untagged ({untaggedCount})
-          </button>
-          <button
-            onClick={() => setFilter('tagged')}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-              filter === 'tagged' ? 'bg-green-600 text-white' : 'border hover:bg-gray-100'
-            }`}
-            style={{
-              backgroundColor: filter === 'tagged' ? undefined : 'var(--surface-white)',
-              borderColor: 'var(--outline-gray-1)',
-              color: filter === 'tagged' ? 'white' : 'var(--ink-gray-6)',
-            }}
-          >
-            Tagged ({taggedCount})
-          </button>
+          {['all', 'attention', 'untagged', 'tagged'].map(filterType => (
+            <button
+              key={filterType}
+              onClick={() => setFilter(filterType)}
+              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                filter === filterType ? 'bg-blue-600 text-white' : 'border hover:bg-gray-100'
+              }`}
+              style={{
+                backgroundColor: filter === filterType ? undefined : 'var(--surface-white)',
+                borderColor: 'var(--outline-gray-1)',
+                color: filter === filterType ? 'white' : 'var(--ink-gray-6)',
+              }}
+            >
+              {filterType === 'all' ? 'All' : filterType === 'attention' ? 'Needs attention' : filterType === 'untagged' ? 'Untagged' : 'Tagged'} 
+              ({filterType === 'all' ? lines.length : filterType === 'attention' ? needsAttention : filterType === 'untagged' ? untaggedCount : taggedCount})
+            </button>
+          ))}
         </div>
         <div className="relative">
           <FeatherIcon name="search" className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--ink-gray-4)' }} />
@@ -189,11 +153,7 @@ export default function PackageTagging({ bid }) {
               </thead>
               <tbody>
                 {filteredLines.slice(0, 50).map((line, idx) => (
-                  <tr 
-                    key={idx} 
-                    className={`border-t ${!line.package ? 'bg-amber-50' : ''}`} 
-                    style={{ borderColor: 'var(--outline-gray-1)' }}
-                  >
+                  <tr key={idx} className={`border-t ${!line.package ? 'bg-amber-50' : ''}`} style={{ borderColor: 'var(--outline-gray-1)' }}>
                     <td className="px-3 py-2 font-mono text-xs" style={{ color: 'var(--ink-gray-6)' }}>
                       {line.item_ref}
                     </td>
@@ -229,14 +189,8 @@ export default function PackageTagging({ bid }) {
                           Kore suggested: {line.suggested_package}
                         </div>
                       )}
-                      {!line.package && line.ai_confidence < 70 && (
-                        <div className="text-xs text-amber-500 mt-1 flex items-center gap-1">
-                          <FeatherIcon name="alert-triangle" className="w-3 h-3" />
-                          Needs manual tagging
-                        </div>
-                      )}
                     </td>
-                  <tr>
+                  </tr>
                 ))}
                 {filteredLines.length === 0 && (
                   <tr>
@@ -279,13 +233,6 @@ export default function PackageTagging({ bid }) {
                 <span>Total lines</span>
                 <Badge theme="gray" size="sm">{lines.length}</Badge>
               </div>
-
-              {untaggedCount === 0 && (
-                <div className="mt-3 p-2 rounded-lg bg-green-50 text-green-700 text-xs flex items-center gap-2">
-                  <FeatherIcon name="check-circle" className="w-3 h-3" />
-                  All lines tagged!
-                </div>
-              )}
             </div>
           </div>
         </Card>
@@ -293,11 +240,9 @@ export default function PackageTagging({ bid }) {
 
       {/* Footer Actions */}
       <div className="flex justify-between items-center p-4 rounded-lg" style={{ backgroundColor: 'var(--surface-gray-2)' }}>
-        <div>
-          <Button variant="outline" onClick={() => window.location.href = '/bid/review'}>
-            ← Back
-          </Button>
-        </div>
+        <Button variant="outline" onClick={() => window.location.href = '/bid/review'}>
+          ← Back
+        </Button>
         <div className="flex items-center gap-3">
           <span className="text-sm" style={{ color: 'var(--ink-gray-5)' }}>
             {untaggedCount > 0 

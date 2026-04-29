@@ -8,7 +8,7 @@ export default function BidStrategy({ bid }) {
   const [contingencyReduction, setContingencyReduction] = useState(0.5);
   const [marginReduction, setMarginReduction] = useState(0);
   
-  const { data: bidData, isLoading, mutate } = useFrappeGetCall(
+  const { data: bidData, isLoading } = useFrappeGetCall(
     'intrakore_estimation.api.get_bid_summary',
     { bid_id: bid?.name },
     'BID_SUMMARY',
@@ -52,10 +52,9 @@ export default function BidStrategy({ bid }) {
       acquisition_method: acquisitionMethod,
       acquisition_rate: acquisitionRate
     });
-    mutate();
   };
 
-  const isAboveThreshold = pricedTotal > 5000000; // AED 5M threshold for demo
+  const isAboveThreshold = pricedTotal > 5000000;
 
   if (isLoading) {
     return (
@@ -71,9 +70,9 @@ export default function BidStrategy({ bid }) {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold" style={{ color: 'var(--ink-gray-9)' }}>Bid strategy</h1>
-          <div className="text-sm mt-1" style={{ color: 'var(--ink-gray-5)' }}>
+          <p className="text-sm mt-1" style={{ color: 'var(--ink-gray-5)' }}>
             Adjust margins and contingencies at bid level · Apply bid acquisition cost
-          </div>
+          </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => window.location.href = '/bid/review-submit'}>
@@ -144,15 +143,15 @@ export default function BidStrategy({ bid }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {summary.packages.map(pkg => (
-                    <tr key={pkg.name} className="border-b" style={{ borderColor: 'var(--outline-gray-1)' }}>
+                  {summary.packages.map((pkg, idx) => (
+                    <tr key={idx} className="border-b" style={{ borderColor: 'var(--outline-gray-1)' }}>
                       <td className="py-2" style={{ color: 'var(--ink-gray-8)' }}>{pkg.name}</td>
                       <td className="text-right font-mono" style={{ color: 'var(--ink-gray-7)' }}>{pkg.cost.toLocaleString()}</td>
                       <td className="text-right">{pkg.margin_pct}%</td>
                       <td className="text-right font-mono text-green-600">{pkg.margin_amt.toLocaleString()}</td>
                       <td className="text-right">{pkg.cont_pct}%</td>
                       <td className="text-right font-mono" style={{ color: 'var(--ink-gray-7)' }}>{pkg.cont_amt.toLocaleString()}</td>
-                    </table>
+                    </tr>
                   ))}
                   <tr className="font-semibold" style={{ backgroundColor: 'var(--surface-gray-2)' }}>
                     <td className="py-2">Bid total</td>
@@ -342,11 +341,9 @@ export default function BidStrategy({ bid }) {
 
       {/* Footer Actions */}
       <div className="flex justify-between items-center p-4 rounded-lg" style={{ backgroundColor: 'var(--surface-gray-2)' }}>
-        <div>
-          <Button variant="outline" onClick={() => window.location.href = '/bid/pricing'}>
-            ← Back to pricing
-          </Button>
-        </div>
+        <Button variant="outline" onClick={() => window.location.href = '/bid/pricing'}>
+          ← Back to pricing
+        </Button>
         <div className="flex items-center gap-3">
           <span className="text-sm" style={{ color: 'var(--ink-gray-5)' }}>
             <strong>Bid total:</strong> AED {bidTotal.toLocaleString()} · Status: Draft
