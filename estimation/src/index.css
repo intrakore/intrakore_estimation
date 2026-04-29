@@ -1,4 +1,22 @@
+/* @import MUST be first, before anything else */
+@import '@rtcamp/frappe-ui-react/theme';
+
+/* Then Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '@rtcamp/frappe-ui-react/theme';
+
+/* Then your custom CSS variables */
+:root {
+  --outline-gray-1: #D5D5E2;
+  --outline-gray-2: #BDBDD1;
+  --surface-gray-1: #F3F3F7;
+  --surface-gray-2: #E8E8EF;
+  --surface-white: #F9F9F9;
+  --ink-gray-4: #8181A7;
+  --ink-gray-5: #60608A;
+  --ink-gray-6: #4B4B6C;
+  --ink-gray-7: #4B4B6C;
+  --ink-gray-8: #36364E;
+  --ink-gray-9: #212130;
+}
