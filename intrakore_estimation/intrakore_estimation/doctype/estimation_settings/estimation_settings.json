@@ -1,0 +1,88 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-28 16:32:58.027520",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "default_margin_percent",
+  "default_contingency_percent",
+  "price_deviation_threshold",
+  "productivity_threshold",
+  "bid_acquisition_cost_default",
+  "auto_suggest_packages",
+  "enable_realtime_collaboration"
+ ],
+ "fields": [
+  {
+   "default": "12.5",
+   "fieldname": "default_margin_percent",
+   "fieldtype": "Percent",
+   "label": "Default Margin %"
+  },
+  {
+   "default": "3",
+   "fieldname": "default_contingency_percent",
+   "fieldtype": "Percent",
+   "label": "Default Contingency %"
+  },
+  {
+   "default": "10",
+   "fieldname": "price_deviation_threshold",
+   "fieldtype": "Percent",
+   "label": "Price Deviation Threshold %"
+  },
+  {
+   "default": "20",
+   "fieldname": "productivity_threshold",
+   "fieldtype": "Percent",
+   "label": "Productivity Warning Threshold"
+  },
+  {
+   "default": "2.5",
+   "fieldname": "bid_acquisition_cost_default",
+   "fieldtype": "Percent",
+   "label": "Default Bid Acquisition Cost %"
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_suggest_packages",
+   "fieldtype": "Check",
+   "label": "Auto Suggest Packages"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_realtime_collaboration",
+   "fieldtype": "Check",
+   "label": "Enable Real-time Collaboration"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-28 16:32:58.027520",
+ "modified_by": "Administrator",
+ "module": "Intrakore Estimation",
+ "name": "Estimation Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

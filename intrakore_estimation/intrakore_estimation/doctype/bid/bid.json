@@ -1,0 +1,292 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:bid_code",
+ "creation": "2026-04-28 16:47:29.039751",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "bid_code",
+  "project_name",
+  "column_break_1",
+  "client",
+  "client_name",
+  "section_break_source",
+  "bid_source",
+  "opportunity",
+  "column_break_2",
+  "status",
+  "section_break_team",
+  "lead_estimator",
+  "lead_estimator_name",
+  "additional_estimators",
+  "column_break_3",
+  "submission_date",
+  "award_date",
+  "section_break_financial",
+  "total_priced_value",
+  "commission_method",
+  "commission_rate",
+  "column_break_4",
+  "bid_total",
+  "section_break_files",
+  "original_boq",
+  "priced_boq",
+  "qualifications_doc",
+  "section_break_notes",
+  "internal_notes",
+  "client_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "bid_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bid Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Project Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Client",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "client.customer_name",
+   "fieldname": "client_name",
+   "fieldtype": "Data",
+   "label": "Client Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_source",
+   "fieldtype": "Section Break",
+   "label": "Bid Source"
+  },
+  {
+   "default": "Standalone",
+   "fieldname": "bid_source",
+   "fieldtype": "Select",
+   "label": "Source",
+   "options": "CRM-linked\nStandalone"
+  },
+  {
+   "depends_on": "eval:doc.bid_source=='CRM-linked'",
+   "fieldname": "opportunity",
+   "fieldtype": "Link",
+   "label": "CRM Opportunity",
+   "options": "Opportunity"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nMapping\nTagging\nPricing\nStrategy\nReview\nSubmitted\nWon\nLost"
+  },
+  {
+   "fieldname": "section_break_team",
+   "fieldtype": "Section Break",
+   "label": "Team"
+  },
+  {
+   "fieldname": "lead_estimator",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Lead Estimator",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "lead_estimator.full_name",
+   "fieldname": "lead_estimator_name",
+   "fieldtype": "Data",
+   "label": "Lead Estimator Name",
+   "read_only": 1
+  },
+  {
+   "description": "Comma separated list of estimator names",
+   "fieldname": "additional_estimators",
+   "fieldtype": "Small Text",
+   "label": "Additional Estimators"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "submission_date",
+   "fieldtype": "Date",
+   "label": "Submission Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "award_date",
+   "fieldtype": "Date",
+   "label": "Award Date"
+  },
+  {
+   "fieldname": "section_break_financial",
+   "fieldtype": "Section Break",
+   "label": "Financials"
+  },
+  {
+   "fieldname": "total_priced_value",
+   "fieldtype": "Currency",
+   "label": "Total Priced Value",
+   "read_only": 1
+  },
+  {
+   "default": "Percentage",
+   "fieldname": "commission_method",
+   "fieldtype": "Select",
+   "label": "Commission Method",
+   "options": "Percentage\nFixed"
+  },
+  {
+   "default": "0",
+   "fieldname": "commission_rate",
+   "fieldtype": "Percent",
+   "label": "Commission Rate"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bid_total",
+   "fieldtype": "Currency",
+   "label": "Bid Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_files",
+   "fieldtype": "Section Break",
+   "label": "Documents"
+  },
+  {
+   "fieldname": "original_boq",
+   "fieldtype": "Attach",
+   "label": "Original BOQ"
+  },
+  {
+   "fieldname": "priced_boq",
+   "fieldtype": "Attach",
+   "label": "Priced BOQ",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qualifications_doc",
+   "fieldtype": "Attach",
+   "label": "Qualifications Document",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_notes",
+   "fieldtype": "Section Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "internal_notes",
+   "fieldtype": "Text Editor",
+   "label": "Internal Notes"
+  },
+  {
+   "fieldname": "client_notes",
+   "fieldtype": "Text Editor",
+   "label": "Client Notes"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-28 16:47:29.039751",
+ "modified_by": "Administrator",
+ "module": "Intrakore Estimation",
+ "name": "Bid",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Estimation Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Estimator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Commercial Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Director",
+   "share": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
