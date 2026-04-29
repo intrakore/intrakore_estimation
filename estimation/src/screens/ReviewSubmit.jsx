@@ -7,7 +7,7 @@ export default function ReviewSubmit({ bid }) {
   const [showPreflight, setShowPreflight] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   
-  const { data: bidData, isLoading, mutate } = useFrappeGetCall(
+  const { data: bidData, isLoading } = useFrappeGetCall(
     'intrakore_estimation.api.get_bid_for_review',
     { bid_id: bid?.name },
     'BID_REVIEW',
@@ -83,36 +83,22 @@ export default function ReviewSubmit({ bid }) {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold" style={{ color: 'var(--ink-gray-9)' }}>Review & submit</h1>
-          <div className="text-sm mt-1" style={{ color: 'var(--ink-gray-5)' }}>
-            Final check before CM review
-          </div>
+          <div className="text-sm mt-1" style={{ color: 'var(--ink-gray-5)' }}>Final check before CM review</div>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => window.location.href = '/bid/export'}>
-            <Eye className="w-4 h-4 mr-1" /> Preview bid
-          </Button>
-          <Button variant="solid" theme="primary" onClick={() => window.location.href = '/bid/export'}>
-            Continue to export →
-          </Button>
+          <Button variant="outline" onClick={() => window.location.href = '/bid/export'}><Eye className="w-4 h-4 mr-1" /> Preview bid</Button>
+          <Button variant="solid" theme="primary" onClick={() => window.location.href = '/bid/export'}>Continue to export →</Button>
         </div>
       </div>
 
-      {/* Stepper */}
       <div className="flex items-center gap-2 p-4 rounded-xl flex-wrap" style={{ backgroundColor: 'var(--surface-gray-2)', border: '1px solid var(--outline-gray-1)' }}>
         {steps.map((step, idx) => (
           <React.Fragment key={step}>
-            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm whitespace-nowrap ${
-              idx === currentStep ? 'bg-blue-600 text-white font-medium' : 
-              idx < currentStep ? 'text-green-600' : 'text-gray-500'
-            }`}>
-              <div className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
-                idx === currentStep ? 'bg-white text-blue-600' : 
-                idx < currentStep ? 'bg-green-600 text-white' : 'bg-gray-300 text-gray-600'
-              }`}>
+            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm whitespace-nowrap ${idx === currentStep ? 'bg-blue-600 text-white font-medium' : idx < currentStep ? 'text-green-600' : 'text-gray-500'}`}>
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${idx === currentStep ? 'bg-white text-blue-600' : idx < currentStep ? 'bg-green-600 text-white' : 'bg-gray-300 text-gray-600'}`}>
                 {idx < currentStep ? '✓' : idx + 1}
               </div>
               {step}
@@ -122,22 +108,14 @@ export default function ReviewSubmit({ bid }) {
         ))}
       </div>
 
-      {/* Pre-flight Strip */}
       <div className="flex justify-between items-center p-3 rounded-lg" style={{ backgroundColor: 'var(--surface-gray-2)', border: '1px solid var(--outline-gray-1)' }}>
         <div className="flex items-center gap-3">
           <Badge theme="green" size="sm">{preflight.passed} ✓</Badge>
           <Badge theme="amber" size="sm">{preflight.warnings} ⚐</Badge>
           <Badge theme="red" size="sm">{preflight.errors} ⚠</Badge>
-          <span className="text-sm" style={{ color: 'var(--ink-gray-7)' }}>
-            <strong>2 issues to fix.</strong> 3 lines unpriced · qualifications missing
-          </span>
+          <span className="text-sm" style={{ color: 'var(--ink-gray-7)' }}><strong>2 issues to fix.</strong> 3 lines unpriced · qualifications missing</span>
         </div>
-        <button 
-          onClick={() => setShowPreflight(!showPreflight)} 
-          className="text-sm text-blue-600 hover:underline"
-        >
-          View details {showPreflight ? '↑' : '↓'}
-        </button>
+        <button onClick={() => setShowPreflight(!showPreflight)} className="text-sm text-blue-600 hover:underline">View details {showPreflight ? '↑' : '↓'}</button>
       </div>
 
       {showPreflight && (
@@ -147,17 +125,13 @@ export default function ReviewSubmit({ bid }) {
               {item.type === 'pass' && <CheckCircle className="w-4 h-4 text-green-600" />}
               {item.type === 'warn' && <AlertTriangle className="w-4 h-4 text-amber-600" />}
               {item.type === 'error' && <AlertTriangle className="w-4 h-4 text-red-600" />}
-              <span style={{ color: item.type === 'error' ? 'var(--ink-gray-9)' : 'var(--ink-gray-7)' }}>
-                {item.text}
-              </span>
+              <span style={{ color: item.type === 'error' ? 'var(--ink-gray-9)' : 'var(--ink-gray-7)' }}>{item.text}</span>
             </div>
           ))}
         </div>
       )}
 
-      {/* Main Content - Two Column Layout */}
       <div className="grid grid-cols-2 gap-5">
-        {/* Bid Summary Table */}
         <Card>
           <div className="p-5">
             <h3 className="font-semibold mb-4" style={{ color: 'var(--ink-gray-8)' }}>Bid summary</h3>
@@ -170,7 +144,7 @@ export default function ReviewSubmit({ bid }) {
                     <th className="text-right py-2 font-semibold" style={{ color: 'var(--ink-gray-5)' }}>Margin</th>
                     <th className="text-right py-2 font-semibold" style={{ color: 'var(--ink-gray-5)' }}>Cont.</th>
                     <th className="text-right py-2 font-semibold" style={{ color: 'var(--ink-gray-5)' }}>Total (AED)</th>
-                  </td>
+                  </tr>
                 </thead>
                 <tbody>
                   {summary.packages.map((pkg, idx) => (
@@ -216,7 +190,6 @@ export default function ReviewSubmit({ bid }) {
           </div>
         </Card>
 
-        {/* Qualifications */}
         <Card>
           <div className="p-5">
             <div className="flex justify-between items-center mb-4">
@@ -227,19 +200,13 @@ export default function ReviewSubmit({ bid }) {
               {qualifications.map((qual, idx) => (
                 <div key={idx} className="p-3 rounded-lg" style={{ backgroundColor: 'var(--surface-gray-2)', border: '1px solid var(--outline-gray-1)' }}>
                   <div className="flex justify-between items-start mb-2">
-                    <Badge theme={qual.type === 'standard' ? 'gray' : 'blue'} size="xs">
-                      {qual.type === 'standard' ? 'Standard' : 'Bid-specific'}
-                    </Badge>
+                    <Badge theme={qual.type === 'standard' ? 'gray' : 'blue'} size="xs">{qual.type === 'standard' ? 'Standard' : 'Bid-specific'}</Badge>
                     <Button variant="ghost" size="sm"><Edit className="w-3 h-3" /> Edit</Button>
                   </div>
                   <div className="text-sm mb-2" style={{ color: 'var(--ink-gray-8)' }}>{qual.text}</div>
-                  <div className="text-xs" style={{ color: 'var(--ink-gray-5)' }}>
-                    Attached to: {qual.attached}
-                  </div>
+                  <div className="text-xs" style={{ color: 'var(--ink-gray-5)' }}>Attached to: {qual.attached}</div>
                 </div>
               ))}
-              
-              {/* Suggested Qualification */}
               <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(167,139,250,0.05)', border: '1px solid rgba(167,139,250,0.3)' }}>
                 <div className="flex justify-between items-start mb-2">
                   <Badge theme="purple" size="xs">Suggested</Badge>
@@ -253,25 +220,11 @@ export default function ReviewSubmit({ bid }) {
         </Card>
       </div>
 
-      {/* Footer Actions */}
       <div className="flex justify-between items-center p-4 rounded-lg" style={{ backgroundColor: 'var(--surface-gray-2)' }}>
-        <div>
-          <Button variant="outline" onClick={() => window.location.href = '/bid/strategy'}>
-            ← Back to bid strategy
-          </Button>
-        </div>
+        <Button variant="outline" onClick={() => window.location.href = '/bid/strategy'}>← Back to bid strategy</Button>
         <div className="flex items-center gap-3">
-          <span className="text-sm" style={{ color: 'var(--ink-gray-5)' }}>
-            <strong>Bid total:</strong> AED {summary.total.toLocaleString()} · Status: Draft
-          </span>
-          <Button 
-            variant="solid" 
-            theme="primary" 
-            loading={submitting}
-            onClick={handleSubmit}
-          >
-            ↗ Submit for CM Review
-          </Button>
+          <span className="text-sm" style={{ color: 'var(--ink-gray-5)' }}><strong>Bid total:</strong> AED {summary.total.toLocaleString()} · Status: Draft</span>
+          <Button variant="solid" theme="primary" loading={submitting} onClick={handleSubmit}>↗ Submit for CM Review</Button>
         </div>
       </div>
     </div>

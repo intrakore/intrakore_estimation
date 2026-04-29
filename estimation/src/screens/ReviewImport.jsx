@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { useFrappeGetCall, useFrappePutCall } from 'frappe-react-sdk';
 import { Card, Button, Badge, Alert } from '@rtcamp/frappe-ui-react';
-import { Zap, Inbox, AlertTriangle, ChevronRight, CheckCircle } from 'lucide-react';
+import { Zap, Inbox, AlertTriangle } from 'lucide-react';
 
 export default function ReviewImport({ bid }) {
   const [selectedTab, setSelectedTab] = useState('review');
   
-  const { data: boqData, isLoading, mutate } = useFrappeGetCall(
+  const { data: boqData, isLoading } = useFrappeGetCall(
     'intrakore_estimation.api.get_parsed_boq',
     { bid_id: bid?.name },
     'PARSED_BOQ',
     { revalidateOnFocus: false }
   );
-
-  const { call: updateMapping, loading } = useFrappePutCall('intrakore_estimation.api.update_column_mapping');
 
   const steps = ['Upload BOQ', 'Review Import', 'Package Tagging', 'Pricing', 'Bid Strategy', 'Review & Submit', 'Export'];
   const currentStep = 1;
@@ -38,7 +36,6 @@ export default function ReviewImport({ bid }) {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold" style={{ color: 'var(--ink-gray-9)' }}>Review imported BOQ</h1>
@@ -51,7 +48,6 @@ export default function ReviewImport({ bid }) {
         </Button>
       </div>
 
-      {/* Stepper */}
       <div className="flex items-center gap-2 p-4 rounded-xl flex-wrap" style={{ backgroundColor: 'var(--surface-gray-2)', border: '1px solid var(--outline-gray-1)' }}>
         {steps.map((step, idx) => (
           <React.Fragment key={step}>
@@ -72,7 +68,6 @@ export default function ReviewImport({ bid }) {
         ))}
       </div>
 
-      {/* AI Callout */}
       <Alert theme="purple">
         <div className="flex items-start gap-3">
           <Zap className="w-4 h-4 text-purple-500 mt-0.5" />
@@ -85,9 +80,7 @@ export default function ReviewImport({ bid }) {
         </div>
       </Alert>
 
-      {/* Main Content - Two Column Layout */}
       <div className="grid grid-cols-4 gap-5">
-        {/* Column Mapping Sidebar */}
         <Card className="col-span-1">
           <div className="p-4">
             <h4 className="font-semibold text-sm mb-3" style={{ color: 'var(--ink-gray-8)' }}>
@@ -117,37 +110,21 @@ export default function ReviewImport({ bid }) {
               Row classification
             </h4>
             <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span style={{ color: 'var(--ink-gray-6)' }}>Line items</span>
-                <span className="font-mono">{stats.line_items}</span>
-              </div>
-              <div className="flex justify-between">
-                <span style={{ color: 'var(--ink-gray-6)' }}>Bill headers</span>
-                <span className="font-mono">{stats.bill_headers || 4}</span>
-              </div>
-              <div className="flex justify-between">
-                <span style={{ color: 'var(--ink-gray-6)' }}>Section headers</span>
-                <span className="font-mono">{stats.headers}</span>
-              </div>
-              <div className="flex justify-between">
-                <span style={{ color: 'var(--ink-gray-6)' }}>Totals / subtotals</span>
-                <span className="font-mono">{stats.totals}</span>
-              </div>
-              <div className="flex justify-between text-amber-600">
-                <span>Ambiguous (review)</span>
-                <span className="font-mono">{stats.ambiguous}</span>
-              </div>
+              <div className="flex justify-between"><span style={{ color: 'var(--ink-gray-6)' }}>Line items</span><span className="font-mono">{stats.line_items}</span></div>
+              <div className="flex justify-between"><span style={{ color: 'var(--ink-gray-6)' }}>Bill headers</span><span className="font-mono">{stats.bill_headers || 4}</span></div>
+              <div className="flex justify-between"><span style={{ color: 'var(--ink-gray-6)' }}>Section headers</span><span className="font-mono">{stats.headers}</span></div>
+              <div className="flex justify-between"><span style={{ color: 'var(--ink-gray-6)' }}>Totals / subtotals</span><span className="font-mono">{stats.totals}</span></div>
+              <div className="flex justify-between text-amber-600"><span>Ambiguous (review)</span><span className="font-mono">{stats.ambiguous}</span></div>
             </div>
           </div>
         </Card>
 
-        {/* Data Table */}
         <Card className="col-span-3 overflow-hidden">
           <div className="overflow-x-auto max-h-[550px] overflow-y-auto">
             <table className="w-full text-sm">
               <thead className="sticky top-0" style={{ backgroundColor: 'var(--surface-gray-2)' }}>
                 <tr className="border-b" style={{ borderColor: 'var(--outline-gray-1)' }}>
-                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--ink-gray-5)' }}>Item</th>
+                  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide w-20" style={{ color: 'var(--ink-gray-5)' }}>Item</th>
                   <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--ink-gray-5)' }}>Description</th>
                   <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide w-16" style={{ color: 'var(--ink-gray-5)' }}>Unit</th>
                   <th className="px-3 py-2 text-right text-xs font-semibold uppercase tracking-wide w-20" style={{ color: 'var(--ink-gray-5)' }}>Qty</th>
@@ -156,24 +133,11 @@ export default function ReviewImport({ bid }) {
               </thead>
               <tbody>
                 {rows.slice(0, 30).map((row, idx) => (
-                  <tr 
-                    key={idx} 
-                    className={`border-t ${row.is_ambiguous ? 'bg-amber-50' : ''}`} 
-                    style={{ borderColor: 'var(--outline-gray-1)' }}
-                  >
-                    <td className="px-3 py-2 font-mono text-xs" style={{ color: 'var(--ink-gray-6)' }}>
-                      {row.item_ref || '-'}
-                    </td>
-                    <td className="px-3 py-2" style={{ color: 'var(--ink-gray-8)' }}>
-                      {row.description?.substring(0, 80)}
-                      {row.description?.length > 80 && '...'}
-                    </td>
-                    <td className="px-3 py-2" style={{ color: 'var(--ink-gray-6)' }}>
-                      {row.unit || '-'}
-                    </td>
-                    <td className="px-3 py-2 text-right font-mono" style={{ color: 'var(--ink-gray-7)' }}>
-                      {row.qty || '-'}
-                    </td>
+                  <tr key={idx} className={`border-t ${row.is_ambiguous ? 'bg-amber-50' : ''}`} style={{ borderColor: 'var(--outline-gray-1)' }}>
+                    <td className="px-3 py-2 font-mono text-xs" style={{ color: 'var(--ink-gray-6)' }}>{row.item_ref || '-'}</td>
+                    <td className="px-3 py-2" style={{ color: 'var(--ink-gray-8)' }}>{row.description?.substring(0, 80)}{row.description?.length > 80 && '...'}</td>
+                    <td className="px-3 py-2" style={{ color: 'var(--ink-gray-6)' }}>{row.unit || '-'}</td>
+                    <td className="px-3 py-2 text-right font-mono" style={{ color: 'var(--ink-gray-7)' }}>{row.qty || '-'}</td>
                     <td className="px-3 py-2">
                       <select 
                         className={`px-2 py-1 rounded text-xs border ${row.is_ambiguous ? 'border-amber-400' : ''} focus:outline-none focus:border-blue-500`}
@@ -188,26 +152,22 @@ export default function ReviewImport({ bid }) {
                       </select>
                       {row.is_ambiguous && (
                         <div className="text-xs text-amber-500 mt-1 flex items-center gap-1">
-                          <AlertTriangle className="w-3 h-3" />
-                          Needs review
+                          <AlertTriangle className="w-3 h-3" /> Needs review
                         </div>
                       )}
                     </td>
-                  <tr>
+                  </tr>
                 ))}
                 {rows.length === 0 && (
                   <tr>
                     <td colSpan="5" className="text-center py-12" style={{ color: 'var(--ink-gray-5)' }}>
-                      <Inbox className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                      No data to review
+                      <Inbox className="w-12 h-12 mx-auto mb-3 opacity-50" /> No data to review
                     </td>
                   </tr>
                 )}
                 {rows.length > 30 && (
                   <tr>
-                    <td colSpan="5" className="text-center py-3" style={{ color: 'var(--ink-gray-5)' }}>
-                      + {rows.length - 30} more rows
-                    </td>
+                    <td colSpan="5" className="text-center py-3" style={{ color: 'var(--ink-gray-5)' }}>+ {rows.length - 30} more rows</td>
                   </tr>
                 )}
               </tbody>
@@ -216,23 +176,14 @@ export default function ReviewImport({ bid }) {
         </Card>
       </div>
 
-      {/* Footer Actions */}
       <div className="flex justify-between items-center p-4 rounded-lg" style={{ backgroundColor: 'var(--surface-gray-2)' }}>
         <div className="flex items-center gap-3">
-          <Button variant="outline" onClick={() => window.location.href = '/bid/upload'}>
-            ← Back
-          </Button>
+          <Button variant="outline" onClick={() => window.location.href = '/bid/upload'}>← Back</Button>
           <span className="text-sm" style={{ color: 'var(--ink-gray-5)' }}>
-            {stats.ambiguous > 0 
-              ? `${stats.ambiguous} ambiguous rows still flagged — review before continuing`
-              : 'All rows reviewed and ready'}
+            {stats.ambiguous > 0 ? `${stats.ambiguous} ambiguous rows still flagged — review before continuing` : 'All rows reviewed and ready'}
           </span>
         </div>
-        <Button 
-          variant="solid" 
-          theme="primary" 
-          onClick={() => window.location.href = '/bid/tagging'}
-        >
+        <Button variant="solid" theme="primary" onClick={() => window.location.href = '/bid/tagging'}>
           Continue to package tagging →
         </Button>
       </div>
