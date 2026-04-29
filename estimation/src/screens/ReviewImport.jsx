@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFrappeGetCall, useFrappePutCall } from 'frappe-react-sdk';
-import { Card, Button, Badge, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Button, Badge, Alert } from '@rtcamp/frappe-ui-react';
+import { Zap, Inbox, AlertTriangle, ChevronRight, CheckCircle } from 'lucide-react';
 
 export default function ReviewImport({ bid }) {
   const [selectedTab, setSelectedTab] = useState('review');
@@ -74,7 +75,7 @@ export default function ReviewImport({ bid }) {
       {/* AI Callout */}
       <Alert theme="purple">
         <div className="flex items-start gap-3">
-          <span className="text-purple-500">✦</span>
+          <Zap className="w-4 h-4 text-purple-500 mt-0.5" />
           <div>
             <strong>Kore parsed {stats.total_rows || rows.length} rows</strong> — {stats.line_items} line items, {stats.headers} headers, {stats.totals} totals.
             {stats.ambiguous > 0 && (
@@ -187,17 +188,17 @@ export default function ReviewImport({ bid }) {
                       </select>
                       {row.is_ambiguous && (
                         <div className="text-xs text-amber-500 mt-1 flex items-center gap-1">
-                          <FeatherIcon name="alert-triangle" className="w-3 h-3" />
+                          <AlertTriangle className="w-3 h-3" />
                           Needs review
                         </div>
                       )}
                     </td>
-                  </tr>
+                  <tr>
                 ))}
                 {rows.length === 0 && (
                   <tr>
                     <td colSpan="5" className="text-center py-12" style={{ color: 'var(--ink-gray-5)' }}>
-                      <FeatherIcon name="inbox" className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                      <Inbox className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       No data to review
                     </td>
                   </tr>

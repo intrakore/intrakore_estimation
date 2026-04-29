@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFrappeGetCall, useFrappePostCall } from 'frappe-react-sdk';
-import { Card, Button, Badge, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Button, Badge, Alert } from '@rtcamp/frappe-ui-react';
+import { CheckCircle, AlertTriangle, Eye, Plus, Edit } from 'lucide-react';
 
 export default function ReviewSubmit({ bid }) {
   const [showPreflight, setShowPreflight] = useState(false);
@@ -92,7 +93,7 @@ export default function ReviewSubmit({ bid }) {
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => window.location.href = '/bid/export'}>
-            ⊟ Preview bid
+            <Eye className="w-4 h-4 mr-1" /> Preview bid
           </Button>
           <Button variant="solid" theme="primary" onClick={() => window.location.href = '/bid/export'}>
             Continue to export →
@@ -143,9 +144,9 @@ export default function ReviewSubmit({ bid }) {
         <div className="p-3 rounded-lg space-y-2" style={{ backgroundColor: 'var(--surface-gray-2)' }}>
           {preflight.items.map((item, idx) => (
             <div key={idx} className="flex gap-2 text-sm">
-              {item.type === 'pass' && <span className="text-green-600">✓</span>}
-              {item.type === 'warn' && <span className="text-amber-600">⚐</span>}
-              {item.type === 'error' && <span className="text-red-600">⚠</span>}
+              {item.type === 'pass' && <CheckCircle className="w-4 h-4 text-green-600" />}
+              {item.type === 'warn' && <AlertTriangle className="w-4 h-4 text-amber-600" />}
+              {item.type === 'error' && <AlertTriangle className="w-4 h-4 text-red-600" />}
               <span style={{ color: item.type === 'error' ? 'var(--ink-gray-9)' : 'var(--ink-gray-7)' }}>
                 {item.text}
               </span>
@@ -169,11 +170,11 @@ export default function ReviewSubmit({ bid }) {
                     <th className="text-right py-2 font-semibold" style={{ color: 'var(--ink-gray-5)' }}>Margin</th>
                     <th className="text-right py-2 font-semibold" style={{ color: 'var(--ink-gray-5)' }}>Cont.</th>
                     <th className="text-right py-2 font-semibold" style={{ color: 'var(--ink-gray-5)' }}>Total (AED)</th>
-                  </tr>
+                  </td>
                 </thead>
                 <tbody>
-                  {summary.packages.map(pkg => (
-                    <tr key={pkg.name} className="border-b" style={{ borderColor: 'var(--outline-gray-1)' }}>
+                  {summary.packages.map((pkg, idx) => (
+                    <tr key={idx} className="border-b" style={{ borderColor: 'var(--outline-gray-1)' }}>
                       <td className="py-2" style={{ color: 'var(--ink-gray-8)' }}>{pkg.name}</td>
                       <td className="text-right font-mono" style={{ color: 'var(--ink-gray-7)' }}>{pkg.cost.toLocaleString()}</td>
                       <td className="text-right">{pkg.margin_pct}%</td>
@@ -220,7 +221,7 @@ export default function ReviewSubmit({ bid }) {
           <div className="p-5">
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-semibold" style={{ color: 'var(--ink-gray-8)' }}>Qualifications & clarifications (8)</h3>
-              <Button variant="outline" size="sm">+ Add</Button>
+              <Button variant="outline" size="sm"><Plus className="w-3 h-3 mr-1" /> Add</Button>
             </div>
             <div className="space-y-3 max-h-[500px] overflow-y-auto">
               {qualifications.map((qual, idx) => (
@@ -229,7 +230,7 @@ export default function ReviewSubmit({ bid }) {
                     <Badge theme={qual.type === 'standard' ? 'gray' : 'blue'} size="xs">
                       {qual.type === 'standard' ? 'Standard' : 'Bid-specific'}
                     </Badge>
-                    <Button variant="ghost" size="sm">Edit</Button>
+                    <Button variant="ghost" size="sm"><Edit className="w-3 h-3" /> Edit</Button>
                   </div>
                   <div className="text-sm mb-2" style={{ color: 'var(--ink-gray-8)' }}>{qual.text}</div>
                   <div className="text-xs" style={{ color: 'var(--ink-gray-5)' }}>
@@ -242,7 +243,7 @@ export default function ReviewSubmit({ bid }) {
               <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(167,139,250,0.05)', border: '1px solid rgba(167,139,250,0.3)' }}>
                 <div className="flex justify-between items-start mb-2">
                   <Badge theme="purple" size="xs">Suggested</Badge>
-                  <Button variant="solid" size="sm" theme="primary">+ Add</Button>
+                  <Button variant="solid" size="sm" theme="primary"><Plus className="w-3 h-3 mr-1" /> Add</Button>
                 </div>
                 <div className="text-sm mb-2" style={{ color: 'var(--ink-gray-8)' }}>{suggestedQualification.text}</div>
                 <div className="text-xs text-purple-600">{suggestedQualification.attached}</div>

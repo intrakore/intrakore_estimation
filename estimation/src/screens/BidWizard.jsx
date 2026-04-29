@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useFrappePostCall, useFrappeGetCall } from 'frappe-react-sdk';
-import { Card, Button, FormLabel, TextInput, Select, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Button, FormLabel, TextInput, Select, Alert } from '@rtcamp/frappe-ui-react';
+import { Link, FileText } from 'lucide-react';
 
 export default function BidWizard({ onComplete }) {
   const [bidType, setBidType] = useState('crm');
@@ -16,7 +17,6 @@ export default function BidWizard({ onComplete }) {
     notes: '',
   });
 
-  // Fetch opportunities for CRM-linked bids
   const { data: opportunitiesData, isLoading: oppLoading } = useFrappeGetCall(
     'intrakore_estimation.api.get_opportunities',
     {},
@@ -64,7 +64,7 @@ export default function BidWizard({ onComplete }) {
               }`}
               style={{ backgroundColor: bidType === 'crm' ? 'rgba(59, 126, 246, 0.05)' : 'var(--surface-white)' }}
             >
-              <FeatherIcon name="link" className="w-5 h-5 mb-2" style={{ color: bidType === 'crm' ? 'var(--primary, #3b7ef6)' : 'var(--ink-gray-4)' }} />
+              <Link className="w-5 h-5 mb-2" style={{ color: bidType === 'crm' ? 'var(--primary, #3b7ef6)' : 'var(--ink-gray-4)' }} />
               <div className="font-medium" style={{ color: bidType === 'crm' ? 'var(--primary, #3b7ef6)' : 'var(--ink-gray-7)' }}>
                 CRM-linked
               </div>
@@ -77,7 +77,7 @@ export default function BidWizard({ onComplete }) {
               }`}
               style={{ backgroundColor: bidType === 'standalone' ? 'rgba(59, 126, 246, 0.05)' : 'var(--surface-white)' }}
             >
-              <FeatherIcon name="file-text" className="w-5 h-5 mb-2" style={{ color: bidType === 'standalone' ? 'var(--primary, #3b7ef6)' : 'var(--ink-gray-4)' }} />
+              <FileText className="w-5 h-5 mb-2" style={{ color: bidType === 'standalone' ? 'var(--primary, #3b7ef6)' : 'var(--ink-gray-4)' }} />
               <div className="font-medium" style={{ color: bidType === 'standalone' ? 'var(--primary, #3b7ef6)' : 'var(--ink-gray-7)' }}>
                 Standalone
               </div>

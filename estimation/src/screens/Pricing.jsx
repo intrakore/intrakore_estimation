@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFrappeGetCall, useFrappePutCall } from 'frappe-react-sdk';
-import { Card, Button, Badge, Progress, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Button, Badge, Progress, Alert } from '@rtcamp/frappe-ui-react';
+import { CheckCircle, AlertTriangle, ChevronDown, Zap, DollarSign, FileText } from 'lucide-react';
 
 export default function Pricing({ bid }) {
   const [selectedPackage, setSelectedPackage] = useState(null);
@@ -27,7 +28,6 @@ export default function Pricing({ bid }) {
 
   const handleConfirmLine = async (lineId, isConfirmed) => {
     await confirmLine({ line_id: lineId, is_confirmed: !isConfirmed });
-    // Refresh data
     window.location.reload();
   };
 
@@ -83,7 +83,7 @@ export default function Pricing({ bid }) {
       {/* AI Callout */}
       <Alert theme="purple">
         <div className="flex items-start gap-3">
-          <span className="text-purple-500">✦</span>
+          <Zap className="w-4 h-4 text-purple-500 mt-0.5" />
           <div>
             <strong>Kore auto-priced {Math.floor(lines.length * 0.75)} of {lines.length} lines</strong> from your Cost Library.
             <strong className="text-amber-500 ml-1">
@@ -125,7 +125,7 @@ export default function Pricing({ bid }) {
                 >
                   <span>{pkg.package_name}</span>
                   <div className="flex items-center gap-2">
-                    {isComplete && <FeatherIcon name="check-circle" className="w-3.5 h-3.5 text-green-500" />}
+                    {isComplete && <CheckCircle className="w-3.5 h-3.5 text-green-500" />}
                     <span className="text-xs" style={{ color: 'var(--ink-gray-5)' }}>{confirmed}/{pkgLines.length}</span>
                   </div>
                 </button>
@@ -193,7 +193,7 @@ export default function Pricing({ bid }) {
                       handleConfirmLine(line.name, line.is_confirmed);
                     }}
                   >
-                    {line.is_confirmed && <FeatherIcon name="check" className="w-3 h-3 text-white" />}
+                    {line.is_confirmed && <CheckCircle className="w-3 h-3 text-white" />}
                   </button>
                   <div className="flex-1 grid grid-cols-5 gap-4 text-sm">
                     <div className="font-mono text-xs" style={{ color: 'var(--ink-gray-6)' }}>{line.item_ref}</div>
@@ -209,15 +209,11 @@ export default function Pricing({ bid }) {
                         AED {line.our_amount?.toLocaleString() || '-'}
                       </span>
                       {line.has_price_deviation && (
-                        <FeatherIcon name="alert-triangle" className="w-3.5 h-3.5 inline-block ml-1 text-amber-500" />
+                        <AlertTriangle className="w-3.5 h-3.5 inline-block ml-1 text-amber-500" />
                       )}
                     </div>
                   </div>
-                  <FeatherIcon 
-                    name="chevron-down" 
-                    className={`w-4 h-4 ml-3 transition-transform ${expandedLine === line.name ? 'rotate-180' : ''}`}
-                    style={{ color: 'var(--ink-gray-4)' }}
-                  />
+                  <ChevronDown className={`w-4 h-4 ml-3 transition-transform ${expandedLine === line.name ? 'rotate-180' : ''}`} style={{ color: 'var(--ink-gray-4)' }} />
                 </div>
 
                 {expandedLine === line.name && (
@@ -314,7 +310,7 @@ export default function Pricing({ bid }) {
                     {/* Line Amount */}
                     <div className="mt-4 pt-3 border-t flex justify-between items-center" style={{ borderColor: 'var(--outline-gray-1)' }}>
                       <div className="flex items-center gap-2">
-                        <FeatherIcon name="dollar-sign" className="w-4 h-4 text-blue-600" />
+                        <DollarSign className="w-4 h-4 text-blue-600" />
                         <span className="text-sm font-medium" style={{ color: 'var(--ink-gray-7)' }}>Line Amount</span>
                       </div>
                       <div className="text-right">
@@ -330,7 +326,7 @@ export default function Pricing({ bid }) {
                     {/* Qualification Button */}
                     <div className="mt-3 pt-3 border-t flex justify-between items-center" style={{ borderColor: 'var(--outline-gray-1)' }}>
                       <div className="flex items-center gap-2">
-                        <FeatherIcon name="file-text" className="w-3.5 h-3.5 text-purple-500" />
+                        <FileText className="w-3.5 h-3.5 text-purple-500" />
                         <span className="text-xs" style={{ color: 'var(--ink-gray-6)' }}>
                           {line.has_qualification ? '1 qualification attached' : 'No qualifications'}
                         </span>

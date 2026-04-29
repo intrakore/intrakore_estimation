@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useFrappePostCall } from 'frappe-react-sdk';
-import { Card, Button, Badge, Alert, Progress, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Button, Badge, Alert, Progress } from '@rtcamp/frappe-ui-react';
+import { Upload, FileText, AlertTriangle, CheckCircle, Zap } from 'lucide-react';
 
 export default function BOQUpload({ bid }) {
   const [file, setFile] = useState(null);
@@ -9,7 +10,7 @@ export default function BOQUpload({ bid }) {
   const [uploadResult, setUploadResult] = useState(null);
   const [error, setError] = useState(null);
 
-  const { call: uploadBOQ, loading } = useFrappePostCall('intrakore_estimation.api.upload_boq');
+  const { call: uploadBOQ } = useFrappePostCall('intrakore_estimation.api.upload_boq');
 
   const handleDrop = useCallback((e) => {
     e.preventDefault();
@@ -60,7 +61,6 @@ export default function BOQUpload({ bid }) {
     }
   };
 
-  // Stepper component
   const steps = ['Upload BOQ', 'Review Import', 'Package Tagging', 'Pricing', 'Bid Strategy', 'Review & Submit', 'Export'];
   const currentStep = 0;
 
@@ -109,7 +109,7 @@ export default function BOQUpload({ bid }) {
       {/* AI Callout */}
       <Alert theme="purple">
         <div className="flex items-start gap-3">
-          <span className="text-purple-500">✦</span>
+          <Zap className="w-4 h-4 text-purple-500 mt-0.5" />
           <div>
             <strong>Ready to upload your BOQ?</strong> Intrakore supports Excel (.xlsx, .xls) and CSV files. 
             We'll automatically detect bills, sections, and line items.
@@ -129,7 +129,7 @@ export default function BOQUpload({ bid }) {
               onClick={() => document.getElementById('file-input').click()}
             >
               <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center bg-blue-100">
-                <FeatherIcon name="upload" className="w-8 h-8 text-blue-600" />
+                <Upload className="w-8 h-8 text-blue-600" />
               </div>
               <div className="font-medium mb-2" style={{ color: 'var(--ink-gray-8)' }}>
                 Drop the client's BOQ file here
@@ -152,7 +152,7 @@ export default function BOQUpload({ bid }) {
             {file && (
               <div className="mt-4 p-3 rounded-lg flex justify-between items-center" style={{ backgroundColor: 'var(--surface-gray-2)' }}>
                 <div className="flex items-center gap-2">
-                  <FeatherIcon name="file-text" className="w-4 h-4 text-green-600" />
+                  <FileText className="w-4 h-4 text-green-600" />
                   <span className="text-sm" style={{ color: 'var(--ink-gray-8)' }}>{file.name}</span>
                   <span className="text-xs" style={{ color: 'var(--ink-gray-5)' }}>
                     ({(file.size / 1024).toFixed(1)} KB)
@@ -194,13 +194,13 @@ export default function BOQUpload({ bid }) {
                 {uploadResult.bills} bills · {uploadResult.lines} line items detected · {uploadResult.size} MB
               </div>
             </div>
-            <Badge theme="success">✓ Uploaded</Badge>
+            <Badge theme="success"><CheckCircle className="w-3 h-3 mr-1" /> Uploaded</Badge>
           </div>
 
           {/* AI Analysis Result */}
           <Alert theme="purple">
             <div className="flex items-start gap-3">
-              <span className="text-purple-500">✦</span>
+              <Zap className="w-4 h-4 text-purple-500 mt-0.5" />
               <div>
                 <strong>Structure detected.</strong> Kore identified {uploadResult.bills} bills and {uploadResult.sections} section headers.
                 Column headers recognised with {uploadResult.confidence || 94}% confidence. Confirm the parsing on the next step.

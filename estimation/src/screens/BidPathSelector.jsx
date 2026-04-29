@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Button, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Button } from '@rtcamp/frappe-ui-react';
+import { Upload, FileText, Plus } from 'lucide-react';
 
 export default function BidPathSelector({ bid }) {
   const startPath = (path) => {
@@ -47,7 +48,7 @@ export default function BidPathSelector({ bid }) {
           }}
         >
           <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3">
-            <FeatherIcon name="upload" className="w-5 h-5 text-blue-600" />
+            <Upload className="w-5 h-5 text-blue-600" />
           </div>
           <h3 className="font-semibold text-base mb-1" style={{ color: 'var(--ink-gray-8)' }}>
             Upload Client BOQ
@@ -71,7 +72,7 @@ export default function BidPathSelector({ bid }) {
           }}
         >
           <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-3">
-            <FeatherIcon name="file-text" className="w-5 h-5 text-purple-600" />
+            <FileText className="w-5 h-5 text-purple-600" />
           </div>
           <h3 className="font-semibold text-base mb-1" style={{ color: 'var(--ink-gray-8)' }}>
             Use existing template
@@ -95,7 +96,7 @@ export default function BidPathSelector({ bid }) {
           }}
         >
           <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-3">
-            <FeatherIcon name="plus" className="w-5 h-5 text-green-600" />
+            <Plus className="w-5 h-5 text-green-600" />
           </div>
           <h3 className="font-semibold text-base mb-1" style={{ color: 'var(--ink-gray-8)' }}>
             Build BOQ from scratch

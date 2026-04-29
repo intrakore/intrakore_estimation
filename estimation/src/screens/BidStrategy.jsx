@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFrappeGetCall, useFrappePutCall } from 'frappe-react-sdk';
-import { Card, Button, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Button, Alert } from '@rtcamp/frappe-ui-react';
+import { Zap, Info, Lock } from 'lucide-react';
 
 export default function BidStrategy({ bid }) {
   const [acquisitionMethod, setAcquisitionMethod] = useState('percentage');
@@ -108,7 +109,7 @@ export default function BidStrategy({ bid }) {
       {/* AI Callout */}
       <Alert theme="purple">
         <div className="flex items-start gap-3">
-          <span className="text-purple-500">✦</span>
+          <Zap className="w-4 h-4 text-purple-500 mt-0.5" />
           <div>
             <strong>Your blended margin is 11.4% — 2.1pts below your last 5 bids</strong> (avg 13.5%).
             Façade &amp; Cladding at 10.5% is the main drag. 
@@ -195,7 +196,9 @@ export default function BidStrategy({ bid }) {
             <div className="mt-4 pt-4 border-t" style={{ borderColor: 'var(--outline-gray-1)' }}>
               <h4 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: 'var(--ink-gray-8)' }}>
                 Strategic adjustments
-                <button className="w-4 h-4 rounded-full border text-xs flex items-center justify-center" style={{ borderColor: 'var(--outline-gray-2)', color: 'var(--ink-gray-5)' }}>i</button>
+                <button className="w-4 h-4 rounded-full border text-xs flex items-center justify-center" style={{ borderColor: 'var(--outline-gray-2)', color: 'var(--ink-gray-5)' }}>
+                  <Info className="w-3 h-3" />
+                </button>
               </h4>
               
               <div className="mb-3">
@@ -247,7 +250,9 @@ export default function BidStrategy({ bid }) {
             <div className="mt-4 pt-4 border-t" style={{ borderColor: 'var(--outline-gray-1)' }}>
               <h4 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: 'var(--ink-gray-8)' }}>
                 Bid Acquisition Cost
-                <button className="w-4 h-4 rounded-full border text-xs flex items-center justify-center" style={{ borderColor: 'var(--outline-gray-2)', color: 'var(--ink-gray-5)' }}>i</button>
+                <button className="w-4 h-4 rounded-full border text-xs flex items-center justify-center" style={{ borderColor: 'var(--outline-gray-2)', color: 'var(--ink-gray-5)' }}>
+                  <Info className="w-3 h-3" />
+                </button>
               </h4>
               
               <div className="flex gap-2 mb-3">
@@ -297,7 +302,7 @@ export default function BidStrategy({ bid }) {
               </div>
 
               <div className="p-2 rounded text-xs flex gap-2" style={{ backgroundColor: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.25)' }}>
-                <span>🔒</span>
+                <Lock className="w-3 h-3" />
                 <span>Bid acquisition cost is visible only to CM and Director roles. Hidden from estimators and never shown on the client-facing bid.</span>
               </div>
             </div>

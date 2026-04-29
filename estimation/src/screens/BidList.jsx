@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useFrappeGetCall } from 'frappe-react-sdk';
-import { Card, Badge, Button, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Badge, Button, Alert } from '@rtcamp/frappe-ui-react';
+import { RefreshCw, Plus, Search, Inbox, ChevronRight, FileText, ArrowRightLeft, Tags, Calculator, TrendingUp, Eye, Send, Trophy, XCircle } from 'lucide-react';
 
 const statusConfig = {
-  Draft: { theme: 'gray', icon: 'file-text' },
-  Mapping: { theme: 'amber', icon: 'arrow-right-left' },
-  Tagging: { theme: 'purple', icon: 'tags' },
-  Pricing: { theme: 'blue', icon: 'calculator' },
-  Strategy: { theme: 'indigo', icon: 'trending-up' },
-  Review: { theme: 'orange', icon: 'eye' },
-  Submitted: { theme: 'green', icon: 'send' },
-  Won: { theme: 'success', icon: 'trophy' },
-  Lost: { theme: 'red', icon: 'x-circle' },
+  Draft: { theme: 'gray', icon: FileText },
+  Mapping: { theme: 'amber', icon: ArrowRightLeft },
+  Tagging: { theme: 'purple', icon: Tags },
+  Pricing: { theme: 'blue', icon: Calculator },
+  Strategy: { theme: 'indigo', icon: TrendingUp },
+  Review: { theme: 'orange', icon: Eye },
+  Submitted: { theme: 'green', icon: Send },
+  Won: { theme: 'success', icon: Trophy },
+  Lost: { theme: 'red', icon: XCircle },
 };
 
 export default function BidList({ onSelectBid }) {
@@ -56,6 +57,8 @@ export default function BidList({ onSelectBid }) {
     );
   }
 
+  const IconComponent = ({ icon: Icon, className }) => Icon && <Icon className={className} />;
+
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
@@ -65,10 +68,10 @@ export default function BidList({ onSelectBid }) {
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => mutate()}>
-            <FeatherIcon name="refresh-cw" className="w-4 h-4 mr-1" /> Refresh
+            <RefreshCw className="w-4 h-4 mr-1" /> Refresh
           </Button>
           <Button variant="solid" theme="primary" onClick={() => onSelectBid(null)}>
-            <FeatherIcon name="plus" className="w-4 h-4 mr-2" />
+            <Plus className="w-4 h-4 mr-2" />
             New Bid
           </Button>
         </div>
@@ -97,7 +100,7 @@ export default function BidList({ onSelectBid }) {
           ))}
         </div>
         <div className="relative">
-          <FeatherIcon name="search" className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--ink-gray-4)' }} />
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--ink-gray-4)' }} />
           <input
             type="text"
             placeholder="Search bids, clients, projects..."
@@ -133,13 +136,14 @@ export default function BidList({ onSelectBid }) {
               {filteredBids.length === 0 ? (
                 <tr>
                   <td colSpan="8" className="text-center py-12" style={{ color: 'var(--ink-gray-5)' }}>
-                    <FeatherIcon name="inbox" className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                    <Inbox className="w-12 h-12 mx-auto mb-3 opacity-50" />
                     No bids found
                   </td>
                 </tr>
               ) : (
                 filteredBids.map((bid) => {
                   const status = statusConfig[bid.status] || statusConfig.Draft;
+                  const StatusIcon = status.icon;
                   return (
                     <tr
                       key={bid.name}
@@ -183,12 +187,12 @@ export default function BidList({ onSelectBid }) {
                       </td>
                       <td className="px-4 py-3">
                         <Badge theme={status.theme} size="sm">
-                          <FeatherIcon name={status.icon} className="w-3 h-3 mr-1" />
+                          <StatusIcon className="w-3 h-3 mr-1" />
                           {bid.status}
                         </Badge>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <FeatherIcon name="chevron-right" className="w-4 h-4" style={{ color: 'var(--ink-gray-4)' }} />
+                        <ChevronRight className="w-4 h-4" style={{ color: 'var(--ink-gray-4)' }} />
                       </td>
                     </tr>
                   );

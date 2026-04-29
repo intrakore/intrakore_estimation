@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFrappeGetCall, useFrappePutCall } from 'frappe-react-sdk';
-import { Card, Button, Badge, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Button, Badge, Alert } from '@rtcamp/frappe-ui-react';
+import { Zap, Search, Inbox, CheckCircle, AlertTriangle } from 'lucide-react';
 
 export default function PackageTagging({ bid }) {
   const [filter, setFilter] = useState('all');
@@ -90,7 +91,7 @@ export default function PackageTagging({ bid }) {
       {/* AI Callout */}
       <Alert theme="purple">
         <div className="flex items-start gap-3">
-          <span className="text-purple-500">✦</span>
+          <Zap className="w-4 h-4 text-purple-500 mt-0.5" />
           <div>
             <strong>Kore tagged {taggedCount} of {lines.length} lines</strong> ({Math.round(taggedCount/lines.length*100)}%). 
             {needsAttention > 0 && (
@@ -103,26 +104,61 @@ export default function PackageTagging({ bid }) {
       {/* Filters */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2">
-          {['all', 'attention', 'untagged', 'tagged'].map(filterType => (
-            <button
-              key={filterType}
-              onClick={() => setFilter(filterType)}
-              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                filter === filterType ? 'bg-blue-600 text-white' : 'border hover:bg-gray-100'
-              }`}
-              style={{
-                backgroundColor: filter === filterType ? undefined : 'var(--surface-white)',
-                borderColor: 'var(--outline-gray-1)',
-                color: filter === filterType ? 'white' : 'var(--ink-gray-6)',
-              }}
-            >
-              {filterType === 'all' ? 'All' : filterType === 'attention' ? 'Needs attention' : filterType === 'untagged' ? 'Untagged' : 'Tagged'} 
-              ({filterType === 'all' ? lines.length : filterType === 'attention' ? needsAttention : filterType === 'untagged' ? untaggedCount : taggedCount})
-            </button>
-          ))}
+          <button
+            onClick={() => setFilter('all')}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+              filter === 'all' ? 'bg-blue-600 text-white' : 'border hover:bg-gray-100'
+            }`}
+            style={{
+              backgroundColor: filter === 'all' ? undefined : 'var(--surface-white)',
+              borderColor: 'var(--outline-gray-1)',
+              color: filter === 'all' ? 'white' : 'var(--ink-gray-6)',
+            }}
+          >
+            All ({lines.length})
+          </button>
+          <button
+            onClick={() => setFilter('attention')}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+              filter === 'attention' ? 'bg-amber-500 text-white' : 'border hover:bg-gray-100'
+            }`}
+            style={{
+              backgroundColor: filter === 'attention' ? undefined : 'var(--surface-white)',
+              borderColor: 'var(--outline-gray-1)',
+              color: filter === 'attention' ? 'white' : 'var(--ink-gray-6)',
+            }}
+          >
+            Needs attention ({needsAttention})
+          </button>
+          <button
+            onClick={() => setFilter('untagged')}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+              filter === 'untagged' ? 'bg-red-500 text-white' : 'border hover:bg-gray-100'
+            }`}
+            style={{
+              backgroundColor: filter === 'untagged' ? undefined : 'var(--surface-white)',
+              borderColor: 'var(--outline-gray-1)',
+              color: filter === 'untagged' ? 'white' : 'var(--ink-gray-6)',
+            }}
+          >
+            Untagged ({untaggedCount})
+          </button>
+          <button
+            onClick={() => setFilter('tagged')}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+              filter === 'tagged' ? 'bg-green-600 text-white' : 'border hover:bg-gray-100'
+            }`}
+            style={{
+              backgroundColor: filter === 'tagged' ? undefined : 'var(--surface-white)',
+              borderColor: 'var(--outline-gray-1)',
+              color: filter === 'tagged' ? 'white' : 'var(--ink-gray-6)',
+            }}
+          >
+            Tagged ({taggedCount})
+          </button>
         </div>
         <div className="relative">
-          <FeatherIcon name="search" className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--ink-gray-4)' }} />
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--ink-gray-4)' }} />
           <input
             type="text"
             placeholder="Search lines..."
@@ -185,7 +221,7 @@ export default function PackageTagging({ bid }) {
                       </select>
                       {line.ai_confidence > 70 && line.suggested_package && (
                         <div className="text-xs text-purple-500 mt-1 flex items-center gap-1">
-                          <FeatherIcon name="zap" className="w-3 h-3" />
+                          <Zap className="w-3 h-3" />
                           Kore suggested: {line.suggested_package}
                         </div>
                       )}
@@ -195,7 +231,7 @@ export default function PackageTagging({ bid }) {
                 {filteredLines.length === 0 && (
                   <tr>
                     <td colSpan="5" className="text-center py-12" style={{ color: 'var(--ink-gray-5)' }}>
-                      <FeatherIcon name="inbox" className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                      <Inbox className="w-12 h-12 mx-auto mb-3 opacity-50" />
                       No lines to display
                     </td>
                   </tr>

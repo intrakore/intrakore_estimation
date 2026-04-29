@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFrappeGetCall, useFrappePostCall } from 'frappe-react-sdk';
-import { Card, Button, Badge, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import { Card, Button, Badge, Alert } from '@rtcamp/frappe-ui-react';
+import { Download, Printer, FileText, Zap, ChevronRight, Eye, Edit, Plus } from 'lucide-react';
 
 export default function Export({ bid }) {
   const [viewMode, setViewMode] = useState('client');
@@ -33,46 +34,22 @@ export default function Export({ bid }) {
       {
         name: 'BILL 2 — SUBSTRUCTURE',
         lines: [
-          { item_ref: '2.1.1', description: 'Excavation to reduced level, not exc. 2m depth', unit: 'm³', qty: 1240, rate: 142, amount: 176080 },
+          { item_ref: '2.1.1', description: 'Excavation to reduced level', unit: 'm³', qty: 1240, rate: 142, amount: 176080 },
           { item_ref: '2.1.2', description: 'Disposal of excavated material off-site', unit: 'm³', qty: 1240, rate: 218, amount: 270320 },
-          { item_ref: '2.2.1', description: 'Blinding concrete, 50mm thick, grade C15', unit: 'm²', qty: 680, rate: 142, amount: 96560 },
-          { item_ref: '2.2.2', description: 'Reinforced concrete raft, grade C35, 600mm thick', unit: 'm³', qty: 408, rate: 2180, amount: 889440 },
         ],
         subtotal: 2031653
       },
-      {
-        name: 'BILL 3 — SUPERSTRUCTURE',
-        lines: [
-          { item_ref: '3.1.1', description: 'Reinforced concrete columns, grade C40, all levels', unit: 'm³', qty: 186, rate: 2410, amount: 448260 },
-          { item_ref: '3.1.2', description: 'Reinforced concrete beams & slabs, grade C40', unit: 'm³', qty: 612, rate: 2260, amount: 1383120 },
-          { item_ref: '3.4.1', description: 'Unitised aluminium curtain wall, double glazed low-e', unit: 'm²', qty: 2840, rate: 2150, amount: 6106000 },
-        ],
-        subtotal: 9680620
-      },
-      {
-        name: 'BILL 4 — FIT-OUT FINISHES',
-        lines: [
-          { item_ref: '4.1.1', description: 'Gypsum partition wall, 100mm, insulated', unit: 'm²', qty: 4260, rate: 240, amount: 1022400 },
-          { item_ref: '4.2.1', description: 'Porcelain floor tile 600×600, fully vitrified', unit: 'm²', qty: 3180, rate: 320, amount: 1017600 },
-          { item_ref: '4.4.1', description: 'Bespoke timber kitchen units', unit: 'nr', qty: 84, rate: 38500, amount: 3234000 },
-        ],
-        subtotal: 12921400
-      }
     ]
   };
 
   const qualifications = [
     { id: 'B.1', text: 'Pricing valid for 60 days from submission date.', visible: true, type: 'bid' },
     { id: 'B.2', text: 'Night work, weekend or public holiday work to be billed at premium rates.', visible: true, type: 'bid' },
-    { id: 'B.3', text: 'Site possession assumed clear, vacant and accessible from the date of LOI.', visible: true, type: 'bid' },
-    { id: 'B.4', text: 'Authority approval fees, NOC charges excluded — to be borne by Employer.', visible: true, type: 'bid' },
     { id: 'B.5', text: 'Internal only: Margin assumes 30% labour from sister entity.', visible: false, type: 'bid' },
-    { id: 'B.6', text: 'Internal only: 1.8% strategic discount applied.', visible: false, type: 'bid' },
   ];
 
   const lineQualifications = [
     { item: '3.1.1', text: 'Reinforced concrete columns rate is subject to formwork access.', visible: true, type: 'line' },
-    { item: '2.1.1', text: 'Excavation rates assume soil classified as Class 2.', visible: true, type: 'line' },
     { item: '5.4.2', text: 'Internal only: Ali Plast quoted AED 168/m² vs base rate of AED 215/m².', visible: false, type: 'line' },
   ];
 
@@ -83,7 +60,6 @@ export default function Export({ bid }) {
       if (result.message?.download_url) {
         window.open(result.message.download_url, '_blank');
       } else {
-        // Simulate download for demo
         setTimeout(() => {
           alert('Bid pack downloaded successfully!');
         }, 1500);
@@ -141,7 +117,7 @@ export default function Export({ bid }) {
       {/* AI Callout */}
       <Alert theme="purple">
         <div className="flex items-start gap-3">
-          <span className="text-purple-500">✦</span>
+          <Zap className="w-4 h-4 text-purple-500 mt-0.5" />
           <div>
             <strong>Bid pack ready.</strong> Client BOQ shows blended sell rates only — bid acquisition cost is rolled in, 
             internal cost components are stripped. Cross-check the qualifications list against the tender requirements 
@@ -181,7 +157,7 @@ export default function Export({ bid }) {
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={handleExport}>
-            <FeatherIcon name="printer" className="w-3.5 h-3.5 mr-1" />
+            <Printer className="w-3.5 h-3.5 mr-1" />
             Print preview
           </Button>
         </div>
@@ -267,7 +243,7 @@ export default function Export({ bid }) {
             <div className="flex justify-between items-center mb-3">
               <h3 className="font-semibold" style={{ color: 'var(--ink-gray-8)' }}>Qualifications & Assumptions</h3>
               <span className="text-xs" style={{ color: 'var(--ink-gray-5)' }}>
-                {qualifications.filter(q => q.visible).length + lineQualifications.filter(q => q.visible).length} visible · {qualifications.filter(q => !q.visible).length + lineQualifications.filter(q => !q.visible).length} suppressed
+                {qualifications.filter(q => q.visible).length + lineQualifications.filter(q => q.visible).length} visible
               </span>
             </div>
 
@@ -282,7 +258,7 @@ export default function Export({ bid }) {
                       <input type="checkbox" className="w-3.5 h-3.5" checked={qual.visible} readOnly />
                       <Badge theme="blue" size="xs">{qual.id}</Badge>
                     </div>
-                    <Button variant="ghost" size="sm">Edit</Button>
+                    <Button variant="ghost" size="sm"><Edit className="w-3 h-3" /> Edit</Button>
                   </div>
                   <div className="text-xs" style={{ color: qual.visible ? 'var(--ink-gray-7)' : 'var(--ink-gray-5)' }}>
                     {qual.text}
@@ -305,7 +281,7 @@ export default function Export({ bid }) {
                       <input type="checkbox" className="w-3.5 h-3.5" checked={qual.visible} readOnly />
                       <Badge theme="gray" size="xs">{qual.item}</Badge>
                     </div>
-                    <Button variant="ghost" size="sm">Edit</Button>
+                    <Button variant="ghost" size="sm"><Edit className="w-3 h-3" /> Edit</Button>
                   </div>
                   <div className="text-xs" style={{ color: qual.visible ? 'var(--ink-gray-7)' : 'var(--ink-gray-5)' }}>
                     {qual.text}
@@ -319,7 +295,7 @@ export default function Export({ bid }) {
 
             <div className="mt-3 pt-3 border-t text-center" style={{ borderColor: 'var(--outline-gray-1)' }}>
               <Button variant="outline" size="sm" className="w-full">
-                + Add qualification
+                <Plus className="w-3 h-3 mr-1" /> Add qualification
               </Button>
             </div>
           </div>
@@ -332,11 +308,11 @@ export default function Export({ bid }) {
           ← Back to review & submit
         </Button>
         <Button variant="outline" onClick={handleExport}>
-          <FeatherIcon name="file-text" className="w-4 h-4 mr-1" />
+          <FileText className="w-4 h-4 mr-1" />
           Generate full bid pack
         </Button>
         <Button variant="solid" theme="primary" loading={exporting} onClick={handleExport}>
-          <FeatherIcon name="download" className="w-4 h-4 mr-1" />
+          <Download className="w-4 h-4 mr-1" />
           ↓ Download Excel
         </Button>
       </div>

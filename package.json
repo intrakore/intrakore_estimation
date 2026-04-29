@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/intrakore-basic/intrakore_estimation/issues"
   },
-  "homepage": "https://github.com/intrakore-basic/intrakore_estimation#readme"
+  "homepage": "https://github.com/intrakore-basic/intrakore_estimation#readme",
+  "dependencies": {
+    "lucide-react": "^1.14.0"
+  }
 }
