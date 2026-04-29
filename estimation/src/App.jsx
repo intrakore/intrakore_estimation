@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useFrappeAuth } from 'frappe-react-sdk';
-import { Button, Card, Alert, FeatherIcon } from 'intrakore-ui';
-import 'intrakore-ui/dist/style.css';
+import { Button, Card, Alert, FeatherIcon } from '@rtcamp/frappe-ui-react';
+import './index.css';
 
 import BidList from './screens/BidList';
 import BidWizard from './screens/BidWizard';
@@ -57,9 +57,16 @@ function Layout({ children }) {
               <span className="text-sm">{currentUser || 'Guest'}</span>
             </div>
             {currentUser && (
-              <Button variant="ghost" size="sm" onClick={logout}>
-                <FeatherIcon name="log-out" className="w-4 h-4" />
-              </Button>
+              <button
+                onClick={logout}
+                className="p-1.5 rounded-md hover:bg-gray-100 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-500">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+              </button>
             )}
           </div>
         </div>
@@ -139,7 +146,11 @@ function LoginPage() {
                 required
               />
             </div>
-            {error && <Alert theme="error" size="sm">{error}</Alert>}
+            {error && (
+              <div className="p-3 rounded-lg text-sm bg-red-50 text-red-600 border border-red-200">
+                {error}
+              </div>
+            )}
             <button
               type="submit"
               disabled={loading}
@@ -173,86 +184,16 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/bids" />} />
-      <Route
-        path="/bids"
-        element={
-          <Layout>
-            <BidList onSelectBid={setCurrentBid} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/bid/new"
-        element={
-          <Layout>
-            <BidWizard onComplete={setCurrentBid} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/bid/path"
-        element={
-          <Layout>
-            <BidPathSelector bid={currentBid} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/bid/upload"
-        element={
-          <Layout>
-            <BOQUpload bid={currentBid} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/bid/review"
-        element={
-          <Layout>
-            <ReviewImport bid={currentBid} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/bid/tagging"
-        element={
-          <Layout>
-            <PackageTagging bid={currentBid} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/bid/pricing"
-        element={
-          <Layout>
-            <Pricing bid={currentBid} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/bid/strategy"
-        element={
-          <Layout>
-            <BidStrategy bid={currentBid} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/bid/review-submit"
-        element={
-          <Layout>
-            <ReviewSubmit bid={currentBid} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/bid/export"
-        element={
-          <Layout>
-            <Export bid={currentBid} />
-          </Layout>
-        }
-      />
+      <Route path="/bids" element={<Layout><BidList onSelectBid={setCurrentBid} /></Layout>} />
+      <Route path="/bid/new" element={<Layout><BidWizard onComplete={setCurrentBid} /></Layout>} />
+      <Route path="/bid/path" element={<Layout><BidPathSelector bid={currentBid} /></Layout>} />
+      <Route path="/bid/upload" element={<Layout><BOQUpload bid={currentBid} /></Layout>} />
+      <Route path="/bid/review" element={<Layout><ReviewImport bid={currentBid} /></Layout>} />
+      <Route path="/bid/tagging" element={<Layout><PackageTagging bid={currentBid} /></Layout>} />
+      <Route path="/bid/pricing" element={<Layout><Pricing bid={currentBid} /></Layout>} />
+      <Route path="/bid/strategy" element={<Layout><BidStrategy bid={currentBid} /></Layout>} />
+      <Route path="/bid/review-submit" element={<Layout><ReviewSubmit bid={currentBid} /></Layout>} />
+      <Route path="/bid/export" element={<Layout><Export bid={currentBid} /></Layout>} />
     </Routes>
   );
 }
