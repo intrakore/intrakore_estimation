@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Fix Package Names and Create Missing Packages
-Run with: bench --site techfordai.local execute intrakore_estimation.fix_packages
+Run with: bench --site techfordai.local execute intrakore_estimation.create_documents
 """
 
 import frappe

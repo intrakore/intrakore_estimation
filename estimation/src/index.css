@@ -1,8 +1,0 @@
-/* @import MUST be first, before anything else */
-@import '@rtcamp/frappe-ui-react/theme';
-
-/* Then Tailwind directives */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-

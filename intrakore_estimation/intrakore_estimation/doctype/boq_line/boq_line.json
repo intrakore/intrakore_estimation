@@ -1,150 +1,82 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:BOQ-{bid}-{####}",
- "creation": "2026-04-28 16:47:30.429090",
+ "creation": "2026-05-04 14:48:44.019614",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "bid",
-  "bill_number",
-  "sheet_name",
-  "column_break_1",
   "item_ref",
   "description",
-  "section_break_client",
-  "client_qty",
   "unit",
-  "client_unit_rate",
-  "column_break_2",
+  "client_qty",
+  "client_rate",
   "client_amount",
-  "original_row_index",
-  "section_break_pricing",
-  "package",
-  "tagging_status",
-  "tagging_confidence",
-  "column_break_3",
   "our_rate",
   "our_amount",
-  "is_priced",
-  "section_break_margin",
   "margin_percent",
   "margin_amount",
-  "column_break_4",
   "contingency_percent",
   "contingency_amount",
-  "section_break_flags",
-  "has_price_deviation",
-  "has_productivity_warning",
+  "sell_rate",
+  "sell_amount",
+  "package",
+  "sheet_name",
+  "row_type",
   "is_confirmed",
   "is_ai_priced",
-  "section_break_cost",
-  "cost_components"
+  "has_warning",
+  "warning_message",
+  "pricing_section",
+  "master_package",
+  "cost_type_breakdown",
+  "column_break_pricing",
+  "line_cost",
+  "line_margin",
+  "line_margin_amount",
+  "line_contingency",
+  "line_contingency_amount",
+  "line_sell",
+  "components_section",
+  "cost_components",
+  "qualified",
+  "is_priced"
  ],
  "fields": [
   {
-   "fieldname": "bid",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Bid",
-   "options": "Bid",
-   "reqd": 1
-  },
-  {
-   "fieldname": "bill_number",
-   "fieldtype": "Data",
-   "label": "Bill Number",
-   "reqd": 1
-  },
-  {
-   "fieldname": "sheet_name",
-   "fieldtype": "Data",
-   "label": "Sheet Name"
-  },
-  {
-   "fieldname": "column_break_1",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "item_ref",
-   "fieldtype": "Data",
+   "fieldtype": "Long Text",
    "in_list_view": 1,
-   "label": "Item Reference",
-   "reqd": 1
+   "label": "Item Reference"
   },
   {
    "fieldname": "description",
    "fieldtype": "Text Editor",
-   "label": "Description",
-   "reqd": 1
-  },
-  {
-   "fieldname": "section_break_client",
-   "fieldtype": "Section Break",
-   "label": "Client Data (Read-only)"
-  },
-  {
-   "fieldname": "client_qty",
-   "fieldtype": "Float",
-   "label": "Client Quantity",
-   "read_only": 1
+   "in_list_view": 1,
+   "label": "Description"
   },
   {
    "fieldname": "unit",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Unit",
-   "read_only": 1
+   "length": 50
   },
   {
-   "fieldname": "client_unit_rate",
+   "fieldname": "client_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Client Quantity"
+  },
+  {
+   "fieldname": "client_rate",
    "fieldtype": "Currency",
-   "label": "Client Unit Rate",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_2",
-   "fieldtype": "Column Break"
+   "label": "Client Rate"
   },
   {
    "fieldname": "client_amount",
    "fieldtype": "Currency",
-   "label": "Client Amount",
-   "read_only": 1
-  },
-  {
-   "fieldname": "original_row_index",
-   "fieldtype": "Int",
-   "label": "Original Row Index",
-   "read_only": 1
-  },
-  {
-   "fieldname": "section_break_pricing",
-   "fieldtype": "Section Break",
-   "label": "Pricing"
-  },
-  {
-   "fieldname": "package",
-   "fieldtype": "Link",
-   "label": "Package",
-   "options": "Package"
-  },
-  {
-   "default": "Draft",
-   "fieldname": "tagging_status",
-   "fieldtype": "Select",
-   "label": "Tagging Status",
-   "options": "Draft\nAI_Suggested\nConfirmed\nManual"
-  },
-  {
-   "fieldname": "tagging_confidence",
-   "fieldtype": "Percent",
-   "label": "AI Confidence",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_3",
-   "fieldtype": "Column Break"
+   "label": "Client Amount"
   },
   {
    "fieldname": "our_rate",
@@ -154,20 +86,7 @@
   {
    "fieldname": "our_amount",
    "fieldtype": "Currency",
-   "label": "Our Amount",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "is_priced",
-   "fieldtype": "Check",
-   "label": "Is Priced",
-   "read_only": 1
-  },
-  {
-   "fieldname": "section_break_margin",
-   "fieldtype": "Section Break",
-   "label": "Margin & Contingency"
+   "label": "Our Amount"
   },
   {
    "default": "12.5",
@@ -178,12 +97,7 @@
   {
    "fieldname": "margin_amount",
    "fieldtype": "Currency",
-   "label": "Margin Amount",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_4",
-   "fieldtype": "Column Break"
+   "label": "Margin Amount"
   },
   {
    "default": "3",
@@ -194,43 +108,118 @@
   {
    "fieldname": "contingency_amount",
    "fieldtype": "Currency",
-   "label": "Contingency Amount",
-   "read_only": 1
+   "label": "Contingency Amount"
   },
   {
-   "fieldname": "section_break_flags",
-   "fieldtype": "Section Break",
-   "label": "Flags"
+   "fieldname": "sell_rate",
+   "fieldtype": "Currency",
+   "label": "Sell Rate"
   },
   {
-   "default": "0",
-   "fieldname": "has_price_deviation",
-   "fieldtype": "Check",
-   "label": "Has Price Deviation",
-   "read_only": 1
+   "fieldname": "sell_amount",
+   "fieldtype": "Currency",
+   "label": "Sell Amount"
   },
   {
-   "default": "0",
-   "fieldname": "has_productivity_warning",
-   "fieldtype": "Check",
-   "label": "Has Productivity Warning",
-   "read_only": 1
+   "fieldname": "package",
+   "fieldtype": "Link",
+   "label": "Package",
+   "options": "Package"
+  },
+  {
+   "fieldname": "sheet_name",
+   "fieldtype": "Data",
+   "label": "Sheet Name",
+   "length": 100
+  },
+  {
+   "fieldname": "row_type",
+   "fieldtype": "Select",
+   "label": "Row Type",
+   "options": "bill\nsection\nline\ntotal"
   },
   {
    "default": "0",
    "fieldname": "is_confirmed",
    "fieldtype": "Check",
-   "label": "Is Confirmed"
+   "label": "Confirmed"
   },
   {
    "default": "0",
    "fieldname": "is_ai_priced",
    "fieldtype": "Check",
-   "label": "Is AI Priced",
+   "label": "AI Priced"
+  },
+  {
+   "default": "0",
+   "fieldname": "has_warning",
+   "fieldtype": "Check",
+   "label": "Has Warning"
+  },
+  {
+   "fieldname": "warning_message",
+   "fieldtype": "Small Text",
+   "label": "Warning Message"
+  },
+  {
+   "fieldname": "pricing_section",
+   "fieldtype": "Section Break",
+   "label": "Pricing Details"
+  },
+  {
+   "fieldname": "master_package",
+   "fieldtype": "Link",
+   "label": "Master Package",
+   "options": "Bid Master Package"
+  },
+  {
+   "fieldname": "cost_type_breakdown",
+   "fieldtype": "JSON",
+   "label": "Cost Type Breakdown",
    "read_only": 1
   },
   {
-   "fieldname": "section_break_cost",
+   "fieldname": "column_break_pricing",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "line_cost",
+   "fieldtype": "Currency",
+   "label": "Line Cost",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "line_margin",
+   "fieldtype": "Percent",
+   "label": "Line Margin (%)"
+  },
+  {
+   "fieldname": "line_margin_amount",
+   "fieldtype": "Currency",
+   "label": "Margin Amount",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "line_contingency",
+   "fieldtype": "Percent",
+   "label": "Line Contingency (%)"
+  },
+  {
+   "fieldname": "line_contingency_amount",
+   "fieldtype": "Currency",
+   "label": "Contingency Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "line_sell",
+   "fieldtype": "Currency",
+   "label": "Line Sell Price",
+   "read_only": 1
+  },
+  {
+   "fieldname": "components_section",
    "fieldtype": "Section Break",
    "label": "Cost Components"
   },
@@ -238,60 +227,33 @@
    "fieldname": "cost_components",
    "fieldtype": "Table",
    "label": "Cost Components",
-   "options": "Cost Component"
+   "options": "BOQ Cost Component"
+  },
+  {
+   "fieldname": "qualified",
+   "fieldtype": "Text Editor",
+   "label": "Qualifications"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_priced",
+   "fieldtype": "Check",
+   "label": "Is Priced"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
+ "istable": 1,
  "links": [],
- "modified": "2026-04-28 16:47:30.429090",
+ "modified": "2026-05-05 12:16:35.244437",
  "modified_by": "Administrator",
  "module": "Intrakore Estimation",
  "name": "BOQ Line",
- "naming_rule": "Expression (old style)",
  "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Estimation Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Estimator",
-   "share": 1,
-   "write": 1
-  }
- ],
+ "permissions": [],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
  "sort_field": "creation",
  "sort_order": "DESC",
- "states": [],
- "track_changes": 1
+ "states": []
 }

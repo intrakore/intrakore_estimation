@@ -4,10 +4,7 @@
   "description": "Construction estimation and bidding platform with AI-powered BOQ processing, package tagging, cost library integration, and multi-stage bid workflow for contractors and subcontractors",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd estimation && yarn install",
-    "dev": "cd estimation && yarn dev",
-    "build": "cd estimation && yarn build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -22,6 +19,8 @@
   },
   "homepage": "https://github.com/intrakore-basic/intrakore_estimation#readme",
   "dependencies": {
-    "lucide-react": "^1.14.0"
+    "lucide-react": "^1.14.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   }
 }

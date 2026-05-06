@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:bid_code",
- "creation": "2026-04-28 16:47:29.039751",
+ "creation": "2026-05-05 11:38:02.483272",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -32,11 +32,28 @@
   "bid_total",
   "section_break_files",
   "original_boq",
+  "parsed_boq",
   "priced_boq",
   "qualifications_doc",
   "section_break_notes",
   "internal_notes",
-  "client_notes"
+  "client_notes",
+  "boq_lines",
+  "material_components",
+  "manpower_components",
+  "subcontractor_components",
+  "equipment_components",
+  "prime_cost_components",
+  "cost_categories_section",
+  "material_cost",
+  "manpower_cost",
+  "equipment_cost",
+  "subcontractor_cost",
+  "prime_cost",
+  "column_break_costs",
+  "total_cost",
+  "total_margin",
+  "total_sell"
  ],
  "fields": [
   {
@@ -214,12 +231,115 @@
    "fieldname": "client_notes",
    "fieldtype": "Text Editor",
    "label": "Client Notes"
+  },
+  {
+   "fieldname": "boq_lines",
+   "fieldtype": "Table",
+   "label": "BOQ Lines",
+   "options": "BOQ Line"
+  },
+  {
+   "fieldname": "cost_categories_section",
+   "fieldtype": "Section Break",
+   "label": "Cost Categories Breakdown"
+  },
+  {
+   "fieldname": "material_cost",
+   "fieldtype": "Currency",
+   "label": "Material Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "manpower_cost",
+   "fieldtype": "Currency",
+   "label": "Manpower Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "equipment_cost",
+   "fieldtype": "Currency",
+   "label": "Equipment Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "subcontractor_cost",
+   "fieldtype": "Currency",
+   "label": "Subcontractor Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "prime_cost",
+   "fieldtype": "Currency",
+   "label": "Prime Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_costs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_margin",
+   "fieldtype": "Currency",
+   "label": "Total Margin",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_sell",
+   "fieldtype": "Currency",
+   "label": "Total Sell Price",
+   "read_only": 1
+  },
+  {
+   "description": "Concrete, rebar, formwork, steel, cement, aggregates, bricks, blocks, timber, plywood, tiles, marble, glass, paint, insulation, waterproofing, adhesives, sealants, pipes, fittings, wires, cables, conduits, switches, sockets, lighting fixtures, plumbing fixtures, sanitary ware, hardware, fasteners, nails, screws, bolts, anchors, reinforcement, mesh, dowels, expansion joints, curing compounds, admixtures, primers, undercoats, topcoats, varnishes, stains, sealers, membranes, geotextiles, drainage pipes, gravel, sand, fill material, etc.",
+   "fieldname": "material_components",
+   "fieldtype": "Table",
+   "label": "Material Components",
+   "options": "BOQ Cost Component"
+  },
+  {
+   "description": "Gangs, fixers, supervisors, concrete placers, steel fixers, carpenters, formwork specialists, masons, bricklayers, plasterers, tilers, painters, electricians, plumbers, HVAC technicians, welders, machine operators, crane operators, riggers, scaffolders, laborers, helpers, foremen, site engineers, project managers, safety officers, quality inspectors, surveyors, store keepers, drivers, etc.",
+   "fieldname": "manpower_components",
+   "fieldtype": "Table",
+   "label": "Manpower Components",
+   "options": "BOQ Cost Component"
+  },
+  {
+   "description": "Tower crane, mobile crane, crawler crane, concrete pump, concrete mixer, concrete vibrator, excavator, backhoe loader, bulldozer, grader, roller compactor, dump truck, tipper truck, water tanker, fuel bowser, forklift, telehandler, scissor lift, boom lift, cherry picker, scaffolding system, formwork system, shoring system, welding machine, generator, compressor, jackhammer, demolition hammer, plate compactor, concrete saw, core drill, grout pump, shotcrete machine, pavers, asphalt plant, batching plant, etc.",
+   "fieldname": "equipment_components",
+   "fieldtype": "Table",
+   "label": "Equipment Components",
+   "options": "BOQ Cost Component"
+  },
+  {
+   "description": "Subcontractor specialists, third party contractors, nominated subcontractors, domestic subcontractors, specialized trade contractors (MEP, HVAC, electrical, plumbing, fire fighting, BMS, security systems, IT networks, elevators, escalators, curtain wall, cladding, waterproofing, insulation, painting, flooring, roofing, landscape, pool works, precast elements, post-tensioning, piling, dewatering, demolition, asbestos removal, etc.)",
+   "fieldname": "subcontractor_components",
+   "fieldtype": "Table",
+   "label": "Subcontractor Components",
+   "options": "BOQ Cost Component"
+  },
+  {
+   "description": "Prime cost items, provisional sums, PC sums, allowances, government fees, authority approvals, connection charges, NOC fees, testing & commissioning, third party inspections, material testing lab fees, insurance premiums, performance bonds, advance payment guarantees, utilities deposits, landlord charges, fit-out permits, building permit fees, municipality charges, DEWA connection, district cooling connection, telecom connection, gas connection, sewer connection, etc.",
+   "fieldname": "prime_cost_components",
+   "fieldtype": "Table",
+   "label": "Prime Cost Components",
+   "options": "BOQ Cost Component"
+  },
+  {
+   "fieldname": "parsed_boq",
+   "fieldtype": "Attach",
+   "label": "Parsed BOQ"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-28 16:47:29.039751",
+ "modified": "2026-05-06 12:26:28.818713",
  "modified_by": "Administrator",
  "module": "Intrakore Estimation",
  "name": "Bid",
@@ -262,6 +382,7 @@
    "write": 1
   },
   {
+   "create": 1,
    "delete": 1,
    "email": 1,
    "export": 1,
@@ -273,6 +394,7 @@
    "write": 1
   },
   {
+   "create": 1,
    "delete": 1,
    "email": 1,
    "export": 1,
@@ -280,7 +402,8 @@
    "read": 1,
    "report": 1,
    "role": "Director",
-   "share": 1
+   "share": 1,
+   "write": 1
   }
  ],
  "row_format": "Dynamic",
